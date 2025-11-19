@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
-    "deploy": "wrangler pages deploy ./dist"
+    "deploy": "wrangler deploy --assets ./dist"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
