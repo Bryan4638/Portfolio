@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  body {
+    background: radial-gradient(ellipse at center, #111 0%, #000 100%);
+  }
+
+  .crt-monitor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 200;
+  }
+
+  .crt-monitor::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 201;
+  }
+
+  .scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        rgba(0, 255, 0, 0) 0px,
+        rgba(0, 255, 0, 0) 2px,
+        rgba(0, 255, 0, 0.03) 2px,
+        rgba(0, 255, 0, 0.03) 4px
+      ),
+      repeating-linear-gradient(
+        to right,
+        rgba(0, 255, 0, 0) 0px,
+        rgba(0, 255, 0, 0) 2px,
+        rgba(0, 255, 0, 0.01) 2px,
+        rgba(0, 255, 0, 0.01) 4px
+      );
+    pointer-events: none;
+    z-index: 150;
+    animation: scanline-move 8s linear infinite;
+  }
+
+  .crt-flicker-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    pointer-events: none;
+    z-index: 180;
+    animation: crt-flicker-overlay 0.15s infinite;
+  }
+
+  .crt-text {
+    position: relative;
+    text-shadow:
+      0 0 10px rgba(34, 197, 94, 0.8),
+      0 0 20px rgba(34, 197, 94, 0.5),
+      0 0 30px rgba(34, 197, 94, 0.3),
+      2px 2px 0 rgba(0, 0, 0, 0.5);
+    animation: crt-flicker 0.15s infinite;
+  }
+
+  .crt-text-large {
+    position: relative;
+    text-shadow:
+      0 0 20px rgba(34, 197, 94, 0.9),
+      0 0 40px rgba(34, 197, 94, 0.6),
+      0 0 60px rgba(34, 197, 94, 0.4),
+      3px 3px 0 rgba(0, 0, 0, 0.5);
+    animation: crt-flicker 0.15s infinite;
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes scanline-move {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(4px);
+    }
+  }
+
+  @keyframes crt-flicker {
+    0% {
+      opacity: 0.97;
+      text-shadow:
+        0 0 10px rgba(34, 197, 94, 0.8),
+        0 0 20px rgba(34, 197, 94, 0.5),
+        0 0 30px rgba(34, 197, 94, 0.3),
+        2px 2px 0 rgba(0, 0, 0, 0.5);
+    }
+    50% {
+      opacity: 1;
+      text-shadow:
+        0 0 20px rgba(34, 197, 94, 0.9),
+        0 0 30px rgba(34, 197, 94, 0.6),
+        0 0 50px rgba(34, 197, 94, 0.4),
+        3px 3px 0 rgba(0, 0, 0, 0.5);
+    }
+    100% {
+      opacity: 0.97;
+      text-shadow:
+        0 0 10px rgba(34, 197, 94, 0.8),
+        0 0 20px rgba(34, 197, 94, 0.5),
+        0 0 30px rgba(34, 197, 94, 0.3),
+        2px 2px 0 rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  @keyframes crt-flicker-overlay {
+    0% {
+      background: rgba(0, 0, 0, 0);
+    }
+    10% {
+      background: rgba(0, 0, 0, 0.02);
+    }
+    20% {
+      background: rgba(0, 0, 0, 0);
+    }
+    100% {
+      background: rgba(0, 0, 0, 0);
+    }
+  }
+}
